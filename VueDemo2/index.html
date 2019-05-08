@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Simple Demo2</title>
+    <link rel="stylesheet" href="./index.css" />
+</head>
+<body>
+<div id="app">
+    <fieldset>
+        <legend>
+            Create New User
+        </legend>
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" v-model="newUser.name" />
+        </div>
+        <div class="form-group">
+            <label>Age:</label>
+            <input type="text" v-model="newUser.age" />
+        </div>
+        <div class="form-group">
+            <label>Sex:</label>
+            <select v-model="newUser.sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label></label>
+            <button @click="createUser">Create</button>
+        </div>
+    </fieldset>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(user,index) in people">
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+            <td>{{user.sex}}</td>
+            <td :class="'text-center'"><button @click="deleteUser(index)">Delete</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            newUser:{
+                name:'',
+                age:0,
+                sex:'Male'
+            },
+            people:[{
+                name:'Lirunmin',
+                age:22,
+                sex:'male'
+            },{
+                name:'Liuyu',
+                age:25,
+                sex:'female'
+            },{
+                name:'Wangying',
+                age:23,
+                sex:'male'
+            },{
+                name:'Panshiying',
+                age:24,
+                sex:'female'
+            }]
+        },
+        methods:{
+            createUser:function(){
+                this.people.push(this.newUser);
+                this.newUser={
+                    name:'',
+                    age:0,
+                    sex:'male'
+                }
+            },
+            deleteUser:function(index){
+                this.people.splice(index,1);
+            }
+        }
+    })
+</script>
+</html>
